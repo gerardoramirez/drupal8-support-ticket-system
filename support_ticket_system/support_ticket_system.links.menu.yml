@@ -1,0 +1,6 @@
+support_ticket_system.admin:
+  title: 'Support System module settings'
+  description: 'Support System admin settings page link'
+  parent: system.admin_config_development
+  route_name: support_ticket_system.content
+  weight: 100

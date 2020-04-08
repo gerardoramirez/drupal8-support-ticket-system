@@ -1,0 +1,6 @@
+name: Support Ticket System
+description: Helps facilitate a Support Ticket System with Drupal.
+package: Custom
+type: module
+version: 1.0
+core: 8.x
