@@ -1,7 +1,7 @@
-support_system.content:
+support_ticket_system.content:
   path: '/support/support-ticket-system'
   defaults:
-    _controller: '\Drupal\support_system\Controller\SupportTicketSystemController::content'
-    _title: 'Drupal Support Ticket System'
+    _controller: '\Drupal\support_ticket_system\Controller\SupportTicketSystemController::content'
+    _title: 'Support Ticket System'
   requirements:
     _permission: 'access content'

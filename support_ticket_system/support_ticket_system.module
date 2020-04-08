@@ -1,0 +1,9 @@
+
+<?php
+
+
+use Drupal\node\NodeInterface;
+
+function support_ticket_system_node_presave($node) {
+  $node->set('field_organization', '1'); // This is a Field added in to the content type
+}

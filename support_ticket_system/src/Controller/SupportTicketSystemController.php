@@ -1,9 +1,9 @@
 <?php
 /**
  * @file
- * Contains \Drupal\hello_world\Controller\HelloController.
+ * Contains \Drupal\support_ticket_system\Controller\SupportTicketSystemController.
  */
-namespace Drupal\support_system\Controller;
+namespace Drupal\support_ticket_system\Controller;
 class SupportTicketSystemController {
   public function content() {
     return array(
