@@ -5,5 +5,13 @@
 use Drupal\node\NodeInterface;
 
 function support_ticket_system_node_presave($node) {
-  $node->set('field_organization', '1'); // This is a Field added in to the content type
+
+  $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  //dpm($user);
+
+  $organization_value = $user->get('field_user_organization')->target_id;
+
+  //dpm($organization_value);
+
+  $node->set('field_organization', $organization_value); // This is a Field added in to the content type
 }
