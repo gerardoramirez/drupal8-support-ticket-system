@@ -4,7 +4,7 @@
 
 use Drupal\node\NodeInterface;
 
-function support_ticket_system_node_presave($node) {
+function support_ticket_system_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
 
   if ($entity->bundle() == 'incident')
   {
