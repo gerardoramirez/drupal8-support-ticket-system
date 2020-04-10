@@ -6,12 +6,12 @@ use Drupal\node\NodeInterface;
 
 function support_ticket_system_node_presave($node) {
 
-  $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-  //dpm($user);
+  if ($entity->bundle() == 'incident')
+  {
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    $organization_value = $user->get('field_user_organization')->target_id;
 
-  $organization_value = $user->get('field_user_organization')->target_id;
-
-  //dpm($organization_value);
-
-  $node->set('field_organization', $organization_value); // This is a Field added in to the content type
+    $entity->set('field_organization', $organization_value);
+  }
+  
 }
