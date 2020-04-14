@@ -4,10 +4,15 @@
 use Drupal\node\NodeInterface;
 
 function support_ticket_system_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> c2faf403b68de86724e92088c9eacbe63996b7ca
   if ($entity->bundle() == 'incident')
   {
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
     $organization_value = $user->get('field_user_organization')->target_id;
+<<<<<<< HEAD
     $entity->set('field_organization', $organization_value);
     updateSupportEngineers();
   }
@@ -47,5 +52,11 @@ function updateSupportEngineers() {
   $params['title'] = 'New Incident Created';//Title
   $params['body'] = 'There was a new Incident created in the system: https://rsi.ricoh-ridp.com/rsi-partner/ricoh/support';//Context
   $mailManager->mail($module, $key, $to , $langcode, $params, $from, $send);
+=======
+
+    $entity->set('field_organization', $organization_value);
+  }
+  
+>>>>>>> c2faf403b68de86724e92088c9eacbe63996b7ca
 }
 
