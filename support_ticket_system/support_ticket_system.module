@@ -1,17 +1,51 @@
 
 <?php
 
-
 use Drupal\node\NodeInterface;
 
-function support_ticket_system_node_presave($node) {
-
-  $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-  //dpm($user);
-
-  $organization_value = $user->get('field_user_organization')->target_id;
-
-  //dpm($organization_value);
-
-  $node->set('field_organization', $organization_value); // This is a Field added in to the content type
+function support_ticket_system_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->bundle() == 'incident')
+  {
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    $organization_value = $user->get('field_user_organization')->target_id;
+    $entity->set('field_organization', $organization_value);
+    updateSupportEngineers();
+  }
 }
+
+/**
+ * Implements hook_mail().
+ */
+function support_ticket_system_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['langcode'],
+  );
+  switch ($key) {
+    case 'new_incident':
+      $message['subject'] = $params['title'];
+      $message['body'][] = $params['body'];
+      break;
+  }
+}
+
+/** * Implements your_module_name_mail_alter().*/
+function support_ticket_system_mail_alter(&$message){
+  if ($message['module'] == 'support_ticket_system') {
+    /*sending html formatted email*/
+    $message['headers']['Content-Type'] = 'text/html; charset=UTF-8;';
+      }
+}
+
+function updateSupportEngineers() {
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $key = 'new_incident';//The value is the variable $key on step 1
+  $module= 'support_ticket_system';
+  $langcode = \Drupal::currentUser()->getPreferredLangcode();
+  $send = true;
+  $to= 'me@gerardoramirez.info';//Recevicer
+  $from= 'donotreply@rsi.rioch-ridp.com';//Sender
+  $params['title'] = 'New Incident Created';//Title
+  $params['body'] = 'There was a new Incident created in the system: https://rsi.ricoh-ridp.com/rsi-partner/ricoh/support';//Context
+  $mailManager->mail($module, $key, $to , $langcode, $params, $from, $send);
+}
+
